@@ -1,4 +1,4 @@
-name: CI
+name: Release Javascript package
 env:
   DEBUG: napi:*
   APP_NAME: oogway
@@ -18,7 +18,15 @@ permissions:
       - '**/*.gitignore'
       - .editorconfig
       - docs/**
+      - py/**
+      - "**/.github/workflows/release_py.yml"
   pull_request: null
+
+
+defaults:
+  run:
+    working-directory: ./js
+
 jobs:
   build:
     strategy:
@@ -29,7 +37,7 @@ jobs:
             target: x86_64-apple-darwin
             build: yarn build
           - host: windows-latest
-            build: yarn build
+            build:  yarn build
             target: x86_64-pc-windows-msvc
           - host: windows-latest
             build: |
@@ -89,6 +97,8 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+          cache-dependency-path: './js/yarn.lock'
+
       - name: Install
         uses: dtolnay/rust-toolchain@stable
         if: ${{ !matrix.settings.docker }}
@@ -126,13 +136,14 @@ jobs:
           node-version: 20
           cache: yarn
           architecture: x86
+          cache-dependency-path: './js/yarn.lock'
       - name: Build in docker
         uses: addnab/docker-run-action@v3
         if: ${{ matrix.settings.docker }}
         with:
           image: ${{ matrix.settings.docker }}
           options: '--user 0:0 -v ${{ github.workspace }}/.cargo-cache/git/db:/usr/local/cargo/git/db -v ${{ github.workspace }}/.cargo/registry/cache:/usr/local/cargo/registry/cache -v ${{ github.workspace }}/.cargo/registry/index:/usr/local/cargo/registry/index -v ${{ github.workspace }}:/build -w /build'
-          run: ${{ matrix.settings.build }}
+          run: cd js && ${{ matrix.settings.build }}
       - name: Build
         run: ${{ matrix.settings.build }}
         if: ${{ !matrix.settings.docker }}
@@ -141,7 +152,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: bindings-${{ matrix.settings.target }}
-          path: ${{ env.APP_NAME }}.*.node
+          path: js/**/${{ env.APP_NAME }}.*.node
           if-no-files-found: error
   test-macOS-windows-binding:
     name: Test bindings on ${{ matrix.settings.target }} - node@${{ matrix.node }}
@@ -166,6 +177,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
+          cache-dependency-path: './js/yarn.lock'
       - name: Install dependencies
         run: yarn install
       - name: Download artifacts
@@ -196,6 +208,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
+          cache-dependency-path: './js/yarn.lock'
       - name: Install dependencies
         run: yarn install
       - name: Download artifacts
@@ -226,6 +239,7 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: yarn
+          cache-dependency-path: './js/yarn.lock'
       - name: Install dependencies
         run: |
           yarn config set supportedArchitectures.libc "musl"
@@ -277,6 +291,7 @@ jobs:
           image: node:${{ matrix.node }}-slim
           options: '--platform linux/arm64 -v ${{ github.workspace }}:/build -w /build'
           run: |
+            cd js
             set -e
             yarn test
             ls -la
@@ -311,6 +326,7 @@ jobs:
           image: node:lts-alpine
           options: '--platform linux/arm64 -v ${{ github.workspace }}:/build -w /build'
           run: |
+            cd js
             set -e
             yarn test
   test-linux-arm-gnueabihf-binding:
@@ -349,6 +365,7 @@ jobs:
           image: node:${{ matrix.node }}-bullseye-slim
           options: '--platform linux/arm/v7 -v ${{ github.workspace }}:/build -w /build'
           run: |
+            cd js
             set -e
             yarn test
             ls -la
@@ -364,25 +381,26 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+          cache-dependency-path: './js/yarn.lock'
       - name: Install dependencies
         run: yarn install
       - name: Download macOS x64 artifact
         uses: actions/download-artifact@v4
         with:
           name: bindings-x86_64-apple-darwin
-          path: artifacts
+          path: ./js/artifacts
       - name: Download macOS arm64 artifact
         uses: actions/download-artifact@v4
         with:
           name: bindings-aarch64-apple-darwin
-          path: artifacts
+          path: ./js/artifacts
       - name: Combine binaries
         run: yarn universal
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: bindings-universal-apple-darwin
-          path: ${{ env.APP_NAME }}.*.node
+          path: js/**/${{ env.APP_NAME }}.*.node
           if-no-files-found: error
   publish:
     name: Publish
@@ -402,6 +420,7 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+          cache-dependency-path: './js/yarn.lock'
       - name: Install dependencies
         run: yarn install
       - name: Download all artifacts
