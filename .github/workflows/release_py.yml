@@ -12,6 +12,7 @@ on:
     tags:
       - '*'
     paths:
+      - "**/.github/workflows/release_py.yml"
       - "py/**" 
   workflow_dispatch:
 
