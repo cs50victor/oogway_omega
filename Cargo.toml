@@ -10,3 +10,6 @@ members = [
 debug = 1
 
 
+[profile.release.package.cs50victor_oogway]
+# lto = true
+strip = "symbols"

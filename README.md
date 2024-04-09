@@ -11,3 +11,14 @@
 <!--- [![Watch the video](./assets/demo_thumbnail.png)](./assets/demo.mp4) -->
 
 https://github.com/cs50victor/oogway_ai/assets/52110451/9eaf199d-bffc-449e-a3fa-33e23a66ed33
+
+
+## develop python package
+
+- `maturin develop -m py/Cargo.toml`
+- 
+
+## develop javascript package
+
+- `maturin develop -m py/Cargo.toml`
+- 

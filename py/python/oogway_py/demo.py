@@ -7,7 +7,7 @@ ai = oogway.Oogway()
 
 # change model name from python
 
-ai.model_name = "gpt-4-0125-preview"
+ai.model_name = "gpt-3.5-turbo-1106"
 
 async def talk_to_oogway(question: str):
     print(f"\n> You : {question}");
