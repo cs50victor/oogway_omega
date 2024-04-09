@@ -3,13 +3,12 @@
 #
 #    maturin generate-ci github -m py/Cargo.toml
 #
-name: CI
+name: Release python package
 
 on:
   push:
     branches:
       - main
-      - master
     tags:
       - '*'
     paths:
