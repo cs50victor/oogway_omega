@@ -1,0 +1,25 @@
+{
+  "name": "@cs50victor/oogway-linux-arm64-gnu",
+  "version": "0.1.0",
+  "os": [
+    "linux"
+  ],
+  "cpu": [
+    "arm64"
+  ],
+  "main": "oogway.linux-arm64-gnu.node",
+  "files": [
+    "oogway.linux-arm64-gnu.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs50victor/oogway_js.git"
+  },
+  "libc": [
+    "glibc"
+  ]
+}

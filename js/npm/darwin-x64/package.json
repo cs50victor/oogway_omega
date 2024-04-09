@@ -1,0 +1,22 @@
+{
+  "name": "@cs50victor/oogway-darwin-x64",
+  "version": "0.1.0",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "oogway.darwin-x64.node",
+  "files": [
+    "oogway.darwin-x64.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs50victor/oogway_js.git"
+  }
+}

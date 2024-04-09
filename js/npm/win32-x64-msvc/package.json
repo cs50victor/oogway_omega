@@ -1,0 +1,22 @@
+{
+  "name": "@cs50victor/oogway-win32-x64-msvc",
+  "version": "0.1.0",
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "main": "oogway.win32-x64-msvc.node",
+  "files": [
+    "oogway.win32-x64-msvc.node"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cs50victor/oogway_js.git"
+  }
+}

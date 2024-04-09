@@ -2,7 +2,8 @@
 resolver = "2"
 members = [
 	"crates/*",
-	"py"
+	"py",
+	"js"
 ]
 
 [profile.release]

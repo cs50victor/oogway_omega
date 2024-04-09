@@ -1,3 +1,4 @@
+tab_spaces = 2
 max_width = 100
 indent_style = "Block"
 use_try_shorthand = true
