@@ -2,7 +2,7 @@ use std::{pin::Pin, sync::Arc};
 
 use async_openai::{error::OpenAIError, types::CreateChatCompletionStreamResponse};
 use async_std::stream::IntoStream;
-use ::oogway::{ask_helper, Oogway as _Oogway};
+use ::oogway::Oogway as _Oogway;
 use futures::{Stream,StreamExt};
 use pyo3::{
     exceptions::{PyKeyError, PyStopAsyncIteration},
@@ -41,9 +41,8 @@ impl Oogway {
     }
 
     pub fn ask(&self, _py: Python, question: String) -> PyResult<RespStream> {
-        let i = self.inner.clone();
         let stream = pyo3_asyncio::tokio::get_runtime()
-            .block_on(async { ask_helper(i, question).await.unwrap().into_stream() });
+            .block_on(async { self.inner.ask(question).await.unwrap().into_stream() });
         Ok(RespStream {
             s: Arc::new(Mutex::new(stream)),
         })
