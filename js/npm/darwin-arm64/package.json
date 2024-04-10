@@ -1,6 +1,6 @@
 {
   "name": "@cs50victor/oogway-darwin-arm64",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "os": [
     "darwin"
   ],
@@ -17,6 +17,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cs50victor/oogway_js.git"
+    "url": "git+https://github.com/cs50victor/oogway_omega.git"
   }
 }
