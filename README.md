@@ -1,6 +1,6 @@
 # oogway ai
 
-> get profound knowledged from master oogway 😔
+> acquire profound knowledge from master oogway 😔
 
 ![oogway](./assets/headshot.jpg)
 
