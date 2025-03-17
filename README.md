@@ -6,7 +6,7 @@
 
 ## Run
 
-`OPENAI_API_KEY=<API_KEY> c r --bin cli`
+`OPENAI_API_KEY=<API_KEY> cargo run --bin cli`
 
 <!--- [![Watch the video](./assets/demo_thumbnail.png)](./assets/demo.mp4) -->
 
